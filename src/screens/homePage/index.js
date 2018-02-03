@@ -10,7 +10,7 @@ import {
   StatusBar,
   Image
 } from 'react-native';
-import {Container,  Header, H1, Icon, Left} from "native-base" ;
+import {Container,  Header, H1, Icon, Left, Right} from "native-base" ;
 import { Grid, Row, Col} from "react-native-easy-grid";
 import styles from "./style";
 
@@ -27,7 +27,7 @@ export default class Login extends Component {
           <Container>
             <StatusBar barStyle="light-content" />
             <Header style={styles.header}
-              androidStatusBarColor="#003f90"
+              androidStatusBarColor="#031328"
               iosBarStyle="light-content">
               <Left>
                 <Button2 onPress={() =>  this.props.navigation.navigate("DrawerOpen")}
@@ -40,9 +40,14 @@ export default class Login extends Component {
                     </View>
                 </Button2>
               </Left>
+              <Right>
+                <H1 style={styles.h1}>
+                  Swell
+                </H1>
+              </Right>
             </Header>
             <Grid>
-              <Row style={styles.row, {height: 200 , backgroundColor: '#FFFFFF'}}>
+                <Row style={styles.row, {height: 150 , backgroundColor: '#FFFFFF'}}>
                   <Col style={{justifyContent:'center', alignItems: 'center'}} >
                     <ImageBackground source={launchscreenLogo} style={styles.logo}>
                     </ImageBackground>

@@ -11,14 +11,20 @@ import {
   Right,
   Badge
 } from "native-base";
-import styles from "./style";
+import styles from "./styles";
 
-const drawerCover = require("../../assets/background/launchscreen-menu.png")
-const drawerImage = require("../../assets/background/logo2.png");
+const drawerCover = require("../../assets/background/launchscreen-menu-1.png")
+const drawerImage = require("../../assets/background/logo-fesasurf.png");
 const datas = [
   {
+    name: "Home",
+    route: "Homepage",
+    icon: "home",
+    bg: "#423f47"
+  },
+  {
     name: "Noticias",
-    route: "Anatomy",
+    route: "Noticias",
     icon: "paper",
     bg: "#423f47"
   },
@@ -30,7 +36,7 @@ const datas = [
   },
   {
     name: "Informacion de Atletas",
-    route: "Header",
+    route: "Categorias",
     icon: "person",
     bg: "#423f47"
   },
@@ -73,7 +79,7 @@ class SideBar extends Component {
                   <Icon
                     active
                     name={data.icon}
-                    style={{ color: "#777", fontSize: 26, width: 40, color: data.bg }}
+                    style={{ color: "#4b688e", fontSize: 26, width: 40 }}
                   />
                   <Text style={styles.text}>
                     {data.name}
