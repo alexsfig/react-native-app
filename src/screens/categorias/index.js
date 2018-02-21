@@ -17,7 +17,7 @@ import {
 } from "native-base";
 import styles from "./styles";
 
-const cardImage = require("../../assets/background/logo.png");
+const cardImage = require("../../assets/background/logo2.png");
 
 const datas = [
   {
