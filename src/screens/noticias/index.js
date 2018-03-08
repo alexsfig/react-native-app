@@ -26,7 +26,7 @@ const cardImage = require("../../assets/background/drawer-cover.png");
 
 const datas = [
   {
-    titulo: "Noticias",
+    titulo: "Noticia",
     note: "22 Enero, 2017",
     cardImage: cardImage,
     text: "Lorem ipsum dolor sit amet."

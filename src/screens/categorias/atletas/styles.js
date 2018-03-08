@@ -23,4 +23,10 @@ export default {
     backgroundColor: "#031328",
     justifyContent: 'flex-start'
   },
+  activityIndicator: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: 80
+   }
 };
