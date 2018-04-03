@@ -5,6 +5,8 @@ import Home from "./screens/home/";
 import Noticias from "./screens/noticias/";
 import Categorias from "./screens/categorias/";
 import Atletas from "./screens/categorias/atletas";
+import Fechas from "./screens/fechas";
+import FechaId from "./screens/fechas/fecha";
 import Perfil from "./screens/categorias/perfil";
 import SideBar from "./screens/sidebar";
 import Homepage from "./screens/homePage";
@@ -31,6 +33,8 @@ const AppNavigator = StackNavigator(
     },
     Home: { screen: Home,  },
     Atletas: { screen: Atletas },
+    Fechas: { screen: Fechas },
+    FechaId: { screen: FechaId },
     Perfil: { screen: Perfil },
   },
   {

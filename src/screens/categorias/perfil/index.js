@@ -31,10 +31,10 @@ class Categorias extends Component {
     }
 
     componentDidMount(){
-      return fetch('http://192.168.1.11:5000/api/v1/atletas/'+this.id)
+      return fetch('http://192.168.1.4:5000/api/v1/atletas/'+this.id)
         .then((response) => response.json())
         .then((responseJson) => {
-            this.atleta = responseJson
+          this.atleta = responseJson
           this.setState({
             isLoading: false,
             dataSource: responseJson,
@@ -73,7 +73,7 @@ class Categorias extends Component {
             </Button>
           </Left>
           <Body>
-            <Title>Perfil</Title>
+            <Title>Informacion de la fecha</Title>
           </Body>
           <Right />
         </Header>

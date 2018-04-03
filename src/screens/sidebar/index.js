@@ -30,7 +30,7 @@ const datas = [
   },
   {
     name: "Fechas",
-    route: "Actionsheet",
+    route: "Fechas",
     icon: "calendar",
     bg: "#423f47"
   },

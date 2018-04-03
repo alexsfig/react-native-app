@@ -1,41 +1,23 @@
 import React, { Component } from "react";
 import { FlatList, ActivityIndicator, View , Image} from 'react-native';
-
-
 import {
   Text,
   Container,
   Header,
   Left,
+  Thumbnail,
   Button,
   Icon,
   Title,
+  H1,
   Right,
+  Content,
   Body,
   List,
   ListItem,
 } from "native-base";
 import styles from "./styles";
-const datas = [
-  {
-    name: "pepe"
-  },
-  {
-    name: "Miguel"
-  },
-  {
-    name: "jose"
-  },
-  {
-    name: "Antonio"
-  },
-  {
-    name: "Pedro"
-  },
-  {
-    name: "Paco"
-  }
-];
+const cardImage = require("../../assets/background/logo2.png");
 
 class Categorias extends Component {
 
@@ -45,7 +27,7 @@ class Categorias extends Component {
   }
 
   componentDidMount(){
-    return fetch('http://192.168.1.4:5000/api/v1/atletas')
+    return fetch('http://192.168.1.4:5000/api/v1/fechas')
       .then((response) => response.json())
       .then((responseJson) => {
 
@@ -79,33 +61,42 @@ class Categorias extends Component {
       <Container style={styles.container}>
         <Header androidStatusBarColor="#031328" style={styles.header}>
           <Left>
-            <Button transparent onPress={() => this.props.navigation.goBack()}>
-              <Icon style={{ color: "#FFFFFF" }} name="arrow-back" />
+            <Button transparent onPress={() => this.props.navigation.navigate("DrawerToggle")}>
+              <Icon style={{ color: "#FFFFFF" }} name="menu" />
             </Button>
           </Left>
           <Body>
-            <Title>Atletas</Title>
+            <Title>Fechas</Title>
           </Body>
           <Right />
         </Header>
-        <Container>
+        <Content>
           <List
             dataArray = {this.state.dataSource}
             renderRow={
                 data =>
-              <ListItem
-                onPress={() => navigate('Perfil', {name: data.persona.nombre, id: data.id})}
-                >
-                <Image source={{ uri: data.ruta_foto }} style={{width: 50, height: 50}} />
+              <ListItem button avatar
+                onPress={() => navigate('FechaId', {id: data.id})}
+              >
+                <Left>
+                  <Thumbnail square small source={cardImage} />
+                </Left>
                 <Body>
-                    <Text>
-                        {data.persona.nombre} {data.persona.apellido}
-                    </Text>
+                  <H1>
+                    {data.nombre}
+                  </H1>
+                  <Text>
+                    Fecha: {data.fecha}
+                  </Text>
+                  <Text>
+                    Playa: {data.playa.nombre}
+                  </Text>
                 </Body>
+
               </ListItem>
             }/>
 
-        </Container>
+        </Content>
       </Container>
 
     )}
