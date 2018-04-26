@@ -40,12 +40,12 @@ const datas = [
     icon: "person",
     bg: "#423f47"
   },
-  {
-    name: "Ranking",
-    route: "Footer",
-    icon: "star",
-    bg: "#423f47"
-  }
+  // {
+  //   name: "Ranking",
+  //   route: "Footer",
+  //   icon: "star",
+  //   bg: "#423f47"
+  // }
 ];
 
 class SideBar extends Component {

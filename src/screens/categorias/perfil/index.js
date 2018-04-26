@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Image, ActivityIndicator,  Dimensions, StatusBar, View} from "react-native";
-
+import Config from 'react-native-config'
+import Moment from 'moment';
+import 'moment/locale/es';
 import {
   Container,
   Header,
@@ -31,7 +33,7 @@ class Categorias extends Component {
     }
 
     componentDidMount(){
-      return fetch('http://192.168.1.4:5000/api/v1/atletas/'+this.id)
+      return fetch(Config.API_URL + '/api/v1/atletas/'+this.id)
         .then((response) => response.json())
         .then((responseJson) => {
           this.atleta = responseJson
@@ -48,6 +50,7 @@ class Categorias extends Component {
         });
     }
   render() {
+    Moment.locale('es');
     const {state} = this.props.navigation;
     const {navigate} = this.props.navigation;
     this.id = state.params.id;
@@ -81,7 +84,7 @@ class Categorias extends Component {
           <Card style={styles.mb}>
             <CardItem bordered>
               <Left>
-                <Image source={{ uri: this.atleta.ruta_foto }} style={{
+                <Image source={{ uri: Config.API2_URL + '/upload/files/' + (this.atleta.ruta_foto == '' ? 'default.png' : this.atleta.ruta_foto ) }} style={{
                   alignSelf: "center",
                   height: (deviceWidth / 2)-50,
                   width: (deviceWidth / 2)-50,
@@ -93,7 +96,8 @@ class Categorias extends Component {
                 <Body>
                     <Left >
                       <Text>{this.atleta.persona.nombre} {this.atleta.persona.apellido}</Text>
-                      <Text note>April 15, 2016</Text>
+                      <Text note>{ Moment(this.atleta.persona.fecha_nacimiento ).format('d  MMMM, YYYY')}</Text>
+                      <Text note>{ Moment().diff(this.atleta.persona.fecha_nacimiento,'years') } Años</Text>
                       <Icon name="star" style={{fontSize: 20, color: '#c36712'}} />
                       <Text style={{fontSize: 20, color: '#c36712'}}>Ranking 3</Text>
                     </Left>
@@ -102,17 +106,50 @@ class Categorias extends Component {
             </CardItem>
 
             <CardItem>
-              <Body>
-                <Text>
-                  Campeon .... nacional de surf
+              <Body style={styles.body}>
+                <Text style={styles.title}>
+                  Edad de inicio en el surf:
+                  <Text style = { styles.content }>
+                    &nbsp;{ this.atleta.edad_inicio} años de edad
+                  </Text>
                 </Text>
-                <Text>
-                  Inicio a los ocho años de edad ...... Lorem ipsum
+                <Text style={styles.title}>
+                  Años Practicando:
+                  <Text style = { styles.content }>
+                    &nbsp;{ this.atleta.anios_practicando} años
+                  </Text>
                 </Text>
-                <Text>
-                  Ola Favorita: ..adfs..
+                <Text style={styles.title}>
+                  Ola Favorita:
+                  <Text style = { styles.content }>
+                    &nbsp;{ this.atleta.ola_preferida}
+                  </Text>
+                </Text>
+                <Text style={styles.title}>
+                  Lado preferido:
+                  <Text style = { styles.content }>
+                    &nbsp;{ this.atleta.lado_pie}
+                  </Text>
+                </Text>
+                <Text style={styles.title}>
+                  Idiomas:
+                  <Text style = { styles.content }>
+                    &nbsp;{ this.atleta.idiomas}
+                  </Text>
+                </Text>
+                <Text style={styles.title}>
+                  Logros:
+                  <Text style = { styles.content }>
+                    &nbsp;{ this.atleta.logros}
+                  </Text>
                 </Text>
 
+                <Text style={styles.title}>
+                  Rutina Constancia:
+                  <Text style = { styles.content }>
+                    &nbsp;{ this.atleta.rutina_constancia}
+                  </Text>
+                </Text>
               </Body>
             </CardItem>
 

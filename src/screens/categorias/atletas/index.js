@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { FlatList, ActivityIndicator, View , Image} from 'react-native';
-
+import Config from 'react-native-config'
 
 import {
   Text,
@@ -14,38 +14,21 @@ import {
   Body,
   List,
   ListItem,
+  Badge
 } from "native-base";
 import styles from "./styles";
-const datas = [
-  {
-    name: "pepe"
-  },
-  {
-    name: "Miguel"
-  },
-  {
-    name: "jose"
-  },
-  {
-    name: "Antonio"
-  },
-  {
-    name: "Pedro"
-  },
-  {
-    name: "Paco"
-  }
-];
 
 class Categorias extends Component {
 
   constructor(props){
     super(props);
+    this.id = null
+    this.anio = null
     this.state ={ isLoading: true}
   }
 
   componentDidMount(){
-    return fetch('http://192.168.1.4:5000/api/v1/atletas')
+    return fetch(Config.API_URL + '/api/v1/categorias/'+ this.id + '/atletas/' + this.anio)
       .then((response) => response.json())
       .then((responseJson) => {
 
@@ -64,6 +47,8 @@ class Categorias extends Component {
   render() {
     const {state} = this.props.navigation;
     const {navigate} = this.props.navigation;
+    this.id = state.params.id;
+    this.anio = 2018;
     if(this.state.isLoading){
       return(
         <View style={{flex: 1, padding: 20}}>
@@ -84,24 +69,31 @@ class Categorias extends Component {
             </Button>
           </Left>
           <Body>
-            <Title>Atletas</Title>
+            <Title>{this.state.dataSource.nombre_categoria}</Title>
           </Body>
           <Right />
         </Header>
         <Container>
           <List
-            dataArray = {this.state.dataSource}
+            dataArray = {this.state.dataSource.ranking}
             renderRow={
                 data =>
               <ListItem
-                onPress={() => navigate('Perfil', {name: data.persona.nombre, id: data.id})}
+                onPress={() => navigate('Perfil', {name: data.atleta.persona.nombre, id: data.atleta.id, ranking_id: data.id})}
                 >
-                <Image source={{ uri: data.ruta_foto }} style={{width: 50, height: 50}} />
+                <Image source={{ uri: Config.API2_URL + '/upload/files/' + (data.atleta.ruta_foto == '' ? 'default.png' : data.atleta.ruta_foto ) }} style={{width: 50, height: 50}} />
                 <Body>
-                    <Text>
-                        {data.persona.nombre} {data.persona.apellido}
-                    </Text>
+                  <Text>
+                    {data.atleta.persona.nombre} {data.atleta.persona.apellido}
+                  </Text>
                 </Body>
+                <Right>
+                  <Badge primary style={styles.badge}>
+                    <Text style={styles.note} note>
+                      {data.lugar}
+                    </Text>
+                  </Badge>
+                </Right>
               </ListItem>
             }/>
 

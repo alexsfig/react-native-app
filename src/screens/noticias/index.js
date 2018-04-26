@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { Image, Dimensions, StatusBar } from "react-native";
+import { Image, Dimensions, StatusBar, FlatList, ActivityIndicator, View } from 'react-native';
+import Config from 'react-native-config'
+
 import {
   Container,
   Header,
@@ -15,44 +17,51 @@ import {
   Right,
   Body,
   List,
+  H2
 } from "native-base";
 import styles from "./styles";
 
 const deviceWidth = Dimensions.get("window").width;
+const deviceHeight = Dimensions.get("window").height;
 const logo = require("../../assets/background/logo-fesasurf.png");
 
 const cardImage = require("../../assets/background/drawer-cover.png");
-
-
-const datas = [
-  {
-    titulo: "Noticia",
-    note: "22 Enero, 2017",
-    cardImage: cardImage,
-    text: "Lorem ipsum dolor sit amet."
-  },
-  {
-    titulo: "Fechas",
-    note: "22 Enero, 2017",
-    cardImage: cardImage,
-    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-  },
-  {
-    titulo: "Informacion de Atletas",
-    note: "22 Enero, 2017",
-    cardImage: cardImage,
-    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
-  },
-  {
-    titulo: "Ranking",
-    note: "22 Enero, 2017",
-    cardImage: cardImage,
-    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse"
-  }
-];
-
+import PhotoView from 'react-native-photo-view';
 class NHCardShowcase extends Component {
+  constructor(props){
+    super(props);
+    this.state ={ isLoading: true}
+  }
+
+  componentDidMount(){
+    return fetch(Config.API_URL + '/api/v1/noticias')
+      .then((response) => response.json())
+      .then((responseJson) => {
+
+        this.setState({
+          isLoading: false,
+          dataSource: responseJson,
+        }, function(){
+
+        });
+
+      })
+      .catch((error) =>{
+        console.error(error);
+      });
+  }
   render() {
+    const {navigate} = this.props.navigation;
+    if(this.state.isLoading){
+      return(
+        <View style={{flex: 1, padding: 20}}>
+          <ActivityIndicator style={styles.activityIndicator}size="large" color="#031328"/>
+          <Text>
+            Cargando Informacion
+          </Text>
+        </View>
+      )
+    }
     return (
       <Container style={styles.container}>
         <StatusBar barStyle="light-content" />
@@ -72,40 +81,42 @@ class NHCardShowcase extends Component {
 
         <Content padder>
           <List
-            dataArray={datas}
-            renderRow={data =>
+            dataArray = {this.state.dataSource}
+            renderRow={
+            data =>
               <Card style={styles.mb}>
                 <CardItem bordered>
-                  <Left>
-                    <Body>
-                      <Text>{data.title}</Text>
-                      <Text note>{ data.note }</Text>
-                    </Body>
-                  </Left>
+                  <Body style={{width: "100%"}}>
+                    <H2>{data.nombre}</H2>
+                    <Text note style={styles.note}>
+                      { data.descripcion }
+                    </Text>
+                  </Body>
                 </CardItem>
-
                 <CardItem>
                   <Body>
-                    <Image
+                    <PhotoView
+                      source={{ uri: Config.API2_URL + '/upload/files/noticia/' + (data.ruta_foto == '' ? 'default.png' : data.ruta_foto ) }}
+                      minimumZoomScale={1}
+                      maximumZoomScale={10}
+                      androidScaleType="center"
+                      onLoad={() => console.log("Image loaded!")}
                       style={{
-                        alignSelf: "center",
-                        height: 150,
-                        resizeMode: "cover",
+                        height: deviceHeight / 1.18,
                         width: deviceWidth / 1.18,
-                        marginVertical: 5
+                        justifyContent: 'center',
+                        alignItems: 'center',
                       }}
-                      source={cardImage}
                     />
-                    <Text>
-                      { data.text}
-                    </Text>
                   </Body>
                 </CardItem>
                 <CardItem style={{ paddingVertical: 0 }}>
                   <Left>
                     <Button transparent>
-                      <Icon name="logo-github" />
-                      <Text>4,923 stars</Text>
+                      <Icon name="star" />
+                      <Text note>
+                        {data.fecha_inicio}
+                      </Text>
                     </Button>
                   </Left>
                 </CardItem>

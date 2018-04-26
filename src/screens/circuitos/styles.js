@@ -11,11 +11,9 @@ export default {
   },
   badge: {
     backgroundColor: '#c36712',
-    width: 35,
-    height: 35,
-    borderRadius: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: 25,
+    height: 25,
+    borderRadius: 50
   },
   note: {
     fontSize: 10,
@@ -26,9 +24,9 @@ export default {
     justifyContent: 'flex-start'
   },
   activityIndicator: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 80
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: 80
    }
 };

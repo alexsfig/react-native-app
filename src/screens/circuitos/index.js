@@ -16,11 +16,12 @@ import {
   Body,
   List,
   ListItem,
+  Badge
 } from "native-base";
 import styles from "./styles";
 const cardImage = require("../../assets/background/logo2.png");
 
-class Categorias extends Component {
+class Circuitos extends Component {
 
   constructor(props){
     super(props);
@@ -28,7 +29,7 @@ class Categorias extends Component {
   }
 
   componentDidMount(){
-    return fetch(Config.API_URL + '/api/v1/fechas')
+    return fetch(Config.API_URL + '/api/v1/circuitos/' + this.id + '/atletas')
       .then((response) => response.json())
       .then((responseJson) => {
 
@@ -47,6 +48,7 @@ class Categorias extends Component {
   render() {
     const {state} = this.props.navigation;
     const {navigate} = this.props.navigation;
+    this.id = state.params.id;
     if(this.state.isLoading){
       return(
         <View style={{flex: 1, padding: 20}}>
@@ -67,33 +69,30 @@ class Categorias extends Component {
             </Button>
           </Left>
           <Body>
-            <Title>Fechas</Title>
+            <Title>Circuito</Title>
           </Body>
           <Right />
         </Header>
         <Content>
           <List
-            dataArray = {this.state.dataSource}
+            dataArray = {this.state.dataSource.atletas_circuito}
             renderRow={
                 data =>
-              <ListItem button avatar
-                onPress={() => navigate('FechaId', {id: data.id})}
+              <ListItem
               >
-                <Left>
-                  <Thumbnail square small source={cardImage} />
-                </Left>
+                <Image source={{ uri: Config.API2_URL + '/upload/files/' + (data.atleta.ruta_foto == '' ? 'default.png' : data.atleta.ruta_foto ) }} style={{width: 50, height: 50}} />
                 <Body>
-                  <H1>
-                    {data.nombre}
-                  </H1>
                   <Text>
-                    Fecha: {data.fecha}
-                  </Text>
-                  <Text>
-                    Playa: {data.playa.nombre}
+                    {data.atleta.persona.nombre} {data.atleta.persona.apellido}
                   </Text>
                 </Body>
-
+                <Right>
+                  <Badge primary style={styles.badge}>
+                    <Text style={styles.note} note>
+                      {data.lugar}
+                    </Text>
+                  </Badge>
+                </Right>
               </ListItem>
             }/>
 
@@ -102,4 +101,4 @@ class Categorias extends Component {
 
     )}
   }
-export default Categorias;
+export default Circuitos;

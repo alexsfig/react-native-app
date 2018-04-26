@@ -11,9 +11,14 @@ export default {
   },
   badge: {
     backgroundColor: '#c36712',
-    width: 25,
-    height: 25,
-    borderRadius: 50
+    width: 35,
+    height: 35,
+    borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  right_c:{
+    color: "#031328",
   },
   note: {
     fontSize: 10,

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { FlatList, ActivityIndicator, View , Image} from 'react-native';
+import Config from 'react-native-config'
 import {
   Text,
   Container,
@@ -31,7 +32,7 @@ class Categorias extends Component {
   }
 
   componentDidMount(){
-    return fetch('http://192.168.1.4:5000/api/v1/fechas/'+this.id)
+    return fetch(Config.API_URL + '/api/v1/fechas/'+this.id)
       .then((response) => response.json())
       .then((responseJson) => {
         this.fecha = responseJson
@@ -71,7 +72,7 @@ class Categorias extends Component {
             </Button>
           </Left>
           <Body>
-            <Title>Fechas</Title>
+            <Title>Circuitos</Title>
           </Body>
           <Right />
         </Header>
@@ -101,7 +102,7 @@ class Categorias extends Component {
               renderRow={
                 data =>
               <ListItem button avatar
-                onPress={() => navigate('FechaId', {id: data.id})}
+                onPress={() => navigate('Circuito', {id: data.id})}
               >
                 <Left>
                   <Thumbnail square small source={cardImage} />
