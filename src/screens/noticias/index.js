@@ -69,7 +69,7 @@ class NHCardShowcase extends Component {
           androidStatusBarColor="#031328"
           iosBarStyle="light-content">
           <Left>
-            <Button transparent onPress={() => this.props.navigation.navigate("DrawerOpen")}>
+            <Button transparent onPress={() => this.props.navigation.goBack()}>
               <Icon style={{ color: "#FFFFFF" }} name="menu" />
             </Button>
           </Left>

@@ -64,7 +64,7 @@ class Circuitos extends Component {
       <Container style={styles.container}>
         <Header androidStatusBarColor="#031328" style={styles.header}>
           <Left>
-            <Button transparent onPress={() => this.props.navigation.navigate("DrawerToggle")}>
+            <Button transparent onPress={() => this.props.navigation.goBack()}>
               <Icon style={{ color: "#FFFFFF" }} name="menu" />
             </Button>
           </Left>
@@ -80,16 +80,19 @@ class Circuitos extends Component {
                 data =>
               <ListItem
               >
-                <Image source={{ uri: Config.API2_URL + '/upload/files/' + (data.atleta.ruta_foto == '' ? 'default.png' : data.atleta.ruta_foto ) }} style={{width: 50, height: 50}} />
+                <Image source={{ uri: Config.API2_URL + '/upload/files/' + data.atleta.id + '.png' }} style={{width: 50, height: 50, borderRadius: 200}} />
                 <Body>
                   <Text>
                     {data.atleta.persona.nombre} {data.atleta.persona.apellido}
+                  </Text>
+                  <Text>
+                    Puntos: {data.puntos}
                   </Text>
                 </Body>
                 <Right>
                   <Badge primary style={styles.badge}>
                     <Text style={styles.note} note>
-                      {data.lugar}
+                      {data.posicion}
                     </Text>
                   </Badge>
                 </Right>

@@ -19,7 +19,8 @@ import Button2 from '../../components/Button';
 import Label from '../../components/Label';
 const launchscreenLogo = require("../../assets/background/logo.png");
 const launchscreenLogoFesa = require("../../assets/background/logo-fesasurf.png");
-const playa = require("../../assets/background/playa.jpg");
+const playa = require("../../assets/background/bg03.jpg");
+const playa2 = require("../../assets/background/bg01.png");
 
 export default class Login extends Component {
     render() {
@@ -46,8 +47,9 @@ export default class Login extends Component {
                 </H1>
               </Right>
             </Header>
-            <Grid>
-                <Row style={styles.row, {height: 150 , backgroundColor: '#FFFFFF'}}>
+            <ScrollView>
+              <Grid>
+                <Row style={styles.row}>
                   <Col style={{justifyContent:'center', alignItems: 'center'}} >
                     <ImageBackground source={launchscreenLogo} style={styles.logo}>
                     </ImageBackground>
@@ -56,11 +58,20 @@ export default class Login extends Component {
                     <ImageBackground source={launchscreenLogoFesa} style={styles.logo2}>
                     </ImageBackground>
                   </Col>
-              </Row>
-              <Row>
-                <Image source={playa} style={styles.drawerCover} />
-              </Row>
-            </Grid>
+                </Row>
+                <Row>
+                  <Image source={playa} style={styles.drawerCover} />
+                </Row>
+                <Text style={styles.text}>
+                  <H1 style={styles.h1}>
+                    FEDERACION SALVADOREÑA DE SURF
+                  </H1>
+                </Text>
+                <Row>
+                  <Image resizeMode="contain" source={playa2} style={styles.drawerCover} />
+                </Row>
+              </Grid>
+            </ScrollView>
 
           </Container>
         );

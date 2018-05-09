@@ -1,4 +1,15 @@
 export default {
+  h1:{
+    fontSize: 30
+  },
+  cardImg:{
+    paddingTop: 10,
+    paddingBottom: 10,
+    justifyContent: 'center',
+  },
+  center:{
+    alignItems: 'center',
+  },
   container: {
     backgroundColor: "#FFF"
   },
@@ -24,6 +35,8 @@ export default {
     justifyContent: 'flex-start'
   },
   body:{
+    paddingTop: 10,
+    paddingBottom: 10,
     margin: 15
   },
   activityIndicator: {

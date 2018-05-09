@@ -7,15 +7,16 @@ const deviceWidth = Dimensions.get("window").width;
 export default {
   drawerCover: {
     height: deviceHeight / 3.5,
-    width: deviceWidth,
-    marginBottom: 30
+    width: deviceWidth
   },
   row:{
-    padding: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingRight: 10,
+    paddingLeft: 10,
     backgroundColor: '#FFFFFF'
   },
   row2:{
-    height: 700,
     backgroundColor: "#e7a73d"
   },
   imageContainer: {
@@ -40,9 +41,18 @@ export default {
     height: 100
   },
   h1:{
-    padding: 20,
+    paddingTop: 20,
     color: "#7c96b7",
     justifyContent: "center"
+  },
+  text:{
+    paddingTop: 40,
+    paddingBottom: 40,
+    paddingRight: 10,
+    paddingLeft: 10,
+    justifyContent: "center",
+    textAlign: "center"
+
   },
   header:{
     backgroundColor: "#031328",

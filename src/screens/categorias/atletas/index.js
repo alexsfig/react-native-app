@@ -81,7 +81,7 @@ class Categorias extends Component {
               <ListItem
                 onPress={() => navigate('Perfil', {name: data.atleta.persona.nombre, id: data.atleta.id, ranking_id: data.id})}
                 >
-                <Image source={{ uri: Config.API2_URL + '/upload/files/' + (data.atleta.ruta_foto == '' ? 'default.png' : data.atleta.ruta_foto ) }} style={{width: 50, height: 50}} />
+                <Image source={{ uri: Config.API2_URL + '/upload/files/' + (data.atleta.id+'.png' )  }} style={{width: 50, height: 50, borderRadius: 200}} />
                 <Body>
                   <Text>
                     {data.atleta.persona.nombre} {data.atleta.persona.apellido}
